@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './components/Home';
+import SearchPage from './components/SearchPage';
 import BookShelf from './components/BookShelf';
 
 const Tab = createBottomTabNavigator();
@@ -14,6 +15,11 @@ export default function App() {
         <Tab.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={SearchPage}
           options={{ headerShown: false }}
         />
         <Tab.Screen
