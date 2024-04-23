@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, FlatList, Image, TextInput, Pressable } from "react-native";
 import GenreButtons from "./GenreButtons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
 
     const [books, setBooks] = useState([]);
-    const [numColumns, setNumColumns] = useState(2);
+    const numColumns = 2;
+    const navigation = useNavigation();
 
     const fetchBooks = (genre) => {
         let url = 'https://www.googleapis.com/books/v1/volumes?q='
@@ -71,13 +73,11 @@ export default function Home() {
                     numColumns={numColumns}
                     renderItem={({ item }) =>
                         <View style={styles.bookContainer}>
-                            <Pressable>
-                                <Image
-                                    style={styles.thumbnail}
-                                    source={{ uri: item.imageLinks.smallThumbnail }}
-                                />
-                                <Text style={{ fontSize: 18 }}>{item.name}</Text>
-                            </Pressable>
+                            <Image
+                                style={styles.thumbnail}
+                                source={{ uri: item.imageLinks.smallThumbnail }}
+                            />
+                            <Text style={{ fontSize: 18 }}>{item.name}</Text>
                         </View>}
 
                 />

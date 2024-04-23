@@ -5,8 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from './components/Home';
 import SearchPage from './components/SearchPage';
 import BookShelf from './components/BookShelf';
+import Book from './components/Book';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
@@ -14,12 +17,12 @@ export default function App() {
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={StackNavigator}
           options={{ headerShown: false }}
         />
         <Tab.Screen
           name="Search"
-          component={SearchPage}
+          component={StackNavigator}
           options={{ headerShown: false }}
         />
         <Tab.Screen
@@ -30,4 +33,25 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
   );
+};
+
+const StackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomePage"
+        component={Home}
+        options={{ headerShown: false }} />
+      <Stack.Screen
+        name="SearchPage"
+        component={SearchPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Book"
+        component={Book}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  )
 }

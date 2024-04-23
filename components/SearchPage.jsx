@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Search() {
 
+    const navigation = useNavigation();
     const [keyword, setKeyword] = useState("");
     const [books, setBooks] = useState([]);
     const numColumns = 2;
@@ -21,7 +23,6 @@ export default function Search() {
                 const filteredBooks = data.items.filter(item => (
                     item.volumeInfo.title &&
                     item.volumeInfo.authors &&
-                    item.volumeInfo.industryIdentifiers &&
                     item.volumeInfo.publisher &&
                     item.volumeInfo.description &&
                     item.volumeInfo.publishedDate &&
@@ -33,7 +34,6 @@ export default function Search() {
                 const chosenInformation = filteredBooks.map(item => ({
                     name: item.volumeInfo.title,
                     authors: item.volumeInfo.authors,
-                    isbn: item.volumeInfo.industryIdentifiers,
                     publisher: item.volumeInfo.publisher,
                     description: item.volumeInfo.description,
                     publishingDate: item.volumeInfo.publishedDate,
@@ -72,12 +72,19 @@ export default function Search() {
                     numColumns={numColumns}
                     renderItem={({ item }) =>
                         <View style={styles.bookContainer}>
-                            <Pressable>
+                            <Pressable onPress={() => navigation.navigate("Book", { book: item })}>
                                 <Image
                                     style={styles.thumbnail}
                                     source={{ uri: item.imageLinks.smallThumbnail }}
                                 />
-                                <Text style={{ fontSize: 18 }}>{item.name}</Text>
+                                <Text style={styles.titleStyle}>{item.name}</Text>
+                                <Button
+                                    mode="contained"
+                                    buttonColor="#8D776E"
+                                    style={styles.buttonStyle}
+                                >
+                                    Learn more
+                                </Button>
                             </Pressable>
                         </View>}
                     ListEmptyComponent={
@@ -121,13 +128,23 @@ const styles = StyleSheet.create({
     },
     bookContainer: {
         alignItems: 'center',
-        marginBottom: 10,
+        justifyContent: 'center',
+        marginBottom: 30,
         width: '50%',
     },
     thumbnail: {
         width: '80%',
         aspectRatio: 1,
         resizeMode: 'contain',
+    },
+    titleStyle: {
+        fontSize: 18,
+        textAlign: 'center'
+    },
+    buttonStyle: {
+        width: '80%',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     emptySearchStyle: {
         flex: 1,
