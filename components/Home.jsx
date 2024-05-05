@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, FlatList, Image, TextInput, Pressable } from "react-native";
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase/Firebase';
 import GenreButtons from "./GenreButtons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -8,6 +10,12 @@ export default function Home() {
     const [books, setBooks] = useState([]);
     const numColumns = 2;
     const navigation = useNavigation();
+
+    const handleLogout = async () => {
+        await signOut(auth)
+        console.log("USer signed out successfully")
+        navigation.navigate('LoginPage');
+    }
 
     const fetchBooks = (genre) => {
         let url = 'https://www.googleapis.com/books/v1/volumes?q='
@@ -64,6 +72,9 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
+            <Pressable onPress={handleLogout} style={styles.logoutButton}>
+                <Text style={styles.logoutText}>Logout</Text>
+            </Pressable>
             <View style={styles.genreContainer}>
                 <GenreButtons fetchBooks={fetchBooks} />
             </View>
