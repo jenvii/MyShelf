@@ -3,11 +3,12 @@ import { StyleSheet, Text, View, FlatList, Pressable, Image } from "react-native
 import { Button, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Search() {
+export default function Search({ user }) {
 
     const navigation = useNavigation();
     const [keyword, setKeyword] = useState("");
     const [books, setBooks] = useState([]);
+    const userId = user.uid;
     const numColumns = 2;
 
     const fetchBooks = (keyword) => {
@@ -72,7 +73,7 @@ export default function Search() {
                     numColumns={numColumns}
                     renderItem={({ item }) =>
                         <View style={styles.bookContainer}>
-                            <Pressable onPress={() => navigation.navigate("Book", { book: item })}>
+                            <Pressable onPress={() => navigation.navigate("Book", { book: item, userUid: userId })}>
                                 <Image
                                     style={styles.thumbnail}
                                     source={{ uri: item.imageLinks.smallThumbnail }}

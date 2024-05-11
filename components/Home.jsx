@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, Image, TextInput, Pressable } from "react-native";
+import { StyleSheet, Text, View, FlatList, Image, Pressable } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase/Firebase';
 import GenreButtons from "./GenreButtons";
@@ -9,12 +9,10 @@ export default function Home() {
 
     const [books, setBooks] = useState([]);
     const numColumns = 2;
-    const navigation = useNavigation();
 
     const handleLogout = async () => {
         await signOut(auth)
         console.log("USer signed out successfully")
-        navigation.navigate('LoginPage');
     }
 
     const fetchBooks = (genre) => {
@@ -65,13 +63,15 @@ export default function Home() {
             })
     }
 
-
     useEffect(() => {
         fetchBooks('All')
     }, [])
 
     return (
         <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.headerText}>Home</Text>
+            </View>
             <Pressable onPress={handleLogout} style={styles.logoutButton}>
                 <Text style={styles.logoutText}>Logout</Text>
             </Pressable>
@@ -102,8 +102,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+    header: {
+        backgroundColor: '#3D2B24',
+        width: '100%',
+        height: '15%',
+        alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 100
+    },
+    headerText: {
+        marginTop: 30,
+        color: 'white',
+        fontSize: 25
     },
     genreContainer: {
         flex: 1,

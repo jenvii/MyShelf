@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import { auth } from './firebase/Firebase';
 import Registration from './components/Registration';
+import Feather from '@expo/vector-icons/Feather';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,62 +28,71 @@ export default function App() {
   }, [])
 
   return (
-    <NavigationContainer>
-      {user ? (
-        <Tab.Navigator>
-          <Tab.Screen
-            name="Home"
-            component={StackNavigator}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="Search"
-            component={StackNavigator}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="BookShelf"
-            component={BookShelf}
-            options={{ headerShown: false }}
-          />
-        </Tab.Navigator>
-      ) : (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }} />
-          <Stack.Screen
-            name="RegistrationPage"
-            component={Registration}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
-  );
+    <>
+      <NavigationContainer>
+        {user ? (
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ color, size }) => {
+                if (route.name === 'Home') {
+                  return <Feather name='home' size={size} color={color} />
+                } else if (route.name === 'SearchPage') {
+                  return <Feather name="search" size={size} color={color} />
+                } else if (route.name === 'BookShelf') {
+                  return <Feather name="book-open" size={size} color={color} />
+                }
+              },
+              tabBarActiveTintColor: '#3D2B24',
+              tabBarInactiveTintColor: 'gray',
+            })}>
+            <Tab.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="Search"
+              options={{ headerShown: false }}
+            >
+              {props => <StackNavigator {...props} user={user} />}
+            </Tab.Screen>
+            <Tab.Screen
+              name="BookShelf"
+              options={{ headerShown: false }}
+            >
+              {props => <BookShelf {...props} user={user} />}
+            </Tab.Screen>
+          </Tab.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }} />
+            <Stack.Screen
+              name="RegistrationPage"
+              component={Registration}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
+    </>
+  )
 };
 
-const StackNavigator = () => {
+const StackNavigator = ({ user }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="HomePage"
-        component={Home}
-        options={{ headerShown: false }} />
-      <Stack.Screen
         name="SearchPage"
-        component={SearchPage}
         options={{ headerShown: false }}
-      />
+      >
+        {props => <SearchPage {...props} user={user} />}
+      </Stack.Screen>
       <Stack.Screen
         name="Book"
         component={Book}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="LoginPage"
-        component={Login}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

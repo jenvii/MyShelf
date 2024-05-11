@@ -1,12 +1,31 @@
-import { StyleSheet, Text, View, Image, ScrollView, Button, Pressable } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, Pressable } from "react-native";
 import { Icon } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { db } from "../firebase/Firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function Book({ route }) {
-    const { book } = route.params;
+    const { book, userUid } = route.params;
     const { name, authors, publisher, description, publishingDate, categories, imageLinks } = book;
+    const [bookForSaving, setsBookForSaving] = useState({
+        bookInfo: book,
+        userId: userUid
+    });
     const publishingYear = publishingDate.split('-')[0];
     const navigation = useNavigation();
+
+    const addToFavorites = async () => {
+        try {
+            const docRef = await addDoc(
+                collection(db, "books"), bookForSaving
+            )
+            console.log("Book added to favorites!")
+        } catch (error) {
+            console.error("Error adding document: " + error)
+        }
+
+    };
 
     return (
         <View style={styles.container}>
@@ -26,6 +45,11 @@ export default function Book({ route }) {
                     <Text>Genre: {categories}</Text>
                     <Text>Published in {publishingYear}</Text>
                     <Text>Published by {publisher}</Text>
+                </View>
+                <View>
+                    <Pressable onPress={addToFavorites}>
+                        <Text>Add to favorites</Text>
+                    </Pressable>
                 </View>
                 <View style={styles.bookDescription}>
                     <Text style={styles.description}>{description}</Text>
