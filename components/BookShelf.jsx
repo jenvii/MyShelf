@@ -1,9 +1,10 @@
-import { collection, getDocs, where } from "firebase/firestore";
-import { FlatList, Text, View, Image } from "react-native";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { FlatList, Text, View, Image, TouchableOpacity } from "react-native";
 import { db } from "../firebase/Firebase";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import { bookShelfStyles } from "./Styles";
+import { Icon } from "@rneui/base";
 
 export default function Shelf({ user }) {
     const [books, setBooks] = useState([]);
@@ -16,6 +17,7 @@ export default function Shelf({ user }) {
             querySnapshot.forEach((doc) => {
                 const bookData = doc.data();
                 if (bookData.userId === userUid) {
+                    bookData.id = doc.id;
                     bookList.push(bookData);
                 }
             });
@@ -24,6 +26,16 @@ export default function Shelf({ user }) {
             console.error("Error with fetching books from Firestore: " + error)
         }
     }
+
+    const removeFromFavorites = async (bookId) => {
+        try {
+            await deleteDoc(doc(db, "books", bookId));
+            const updatedBooks = books.filter(book => book.id !== bookId);
+            setBooks(updatedBooks);
+        } catch (error) {
+            console.error("Error with removing book from favorites:", error);
+        }
+    };
 
     useEffect(() => {
         getFavoriteBooks();
@@ -44,6 +56,11 @@ export default function Shelf({ user }) {
                             <View bookShelfStyles={bookShelfStyles.textContainer}>
                                 <Text style={bookShelfStyles.textStyle} >{item.bookInfo.name}</Text>
                                 <Text>{item.bookInfo.authors}</Text>
+                            </View>
+                            <View style={bookShelfStyles.removeButtonContainer}>
+                                <TouchableOpacity onPress={() => removeFromFavorites(item.id)}>
+                                    <Icon name="close" size={30} color="#3D2B24" />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )}

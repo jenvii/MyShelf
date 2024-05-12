@@ -196,22 +196,32 @@ export const bookShelfStyles = StyleSheet.create({
         flex: 3,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '95%'
+        width: '98%'
     },
     listStyle: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
+        width: '98%',
+        justifyContent: 'space-between',
+
     },
+
     textContainer: {
-        flexDirection: 'column',
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'space-between',
     },
     textStyle: {
-        maxWidth: '90%'
+        maxWidth: '90%',
     },
     thumbnail: {
         width: '40%',
         aspectRatio: 1,
         resizeMode: 'contain',
+    },
+    removeButtonContainer: {
+        marginLeft: 'auto',
     },
 });
