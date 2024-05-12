@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, Image, Pressable } from "react-native";
+import { Text, View, FlatList, Image, Pressable } from "react-native";
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase/Firebase';
 import GenreButtons from "./GenreButtons";
-import { useNavigation } from "@react-navigation/native";
+import Header from "./Header";
+import { homeStyles } from "./Styles";
 
-export default function Home() {
+export default function Home({ user }) {
 
     const [books, setBooks] = useState([]);
     const numColumns = 2;
+    const username = (user.email).split('@')[0]
 
     const handleLogout = async () => {
         await signOut(auth)
@@ -68,24 +70,23 @@ export default function Home() {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Home</Text>
-            </View>
-            <Pressable onPress={handleLogout} style={styles.logoutButton}>
-                <Text style={styles.logoutText}>Logout</Text>
+        <View style={homeStyles.container}>
+            <Header headertext="Home" />
+            <Text style={homeStyles.welcomeTextStyle}>Welcome to MyShelf, {username}</Text>
+            <Pressable onPress={handleLogout} style={homeStyles.logoutButton}>
+                <Text style={homeStyles.logoutText}>Logout</Text>
             </Pressable>
-            <View style={styles.genreContainer}>
+            <View style={homeStyles.genreContainer}>
                 <GenreButtons fetchBooks={fetchBooks} />
             </View>
-            <View style={styles.listContainer}>
+            <View style={homeStyles.listContainer}>
                 <FlatList
                     data={books}
                     numColumns={numColumns}
                     renderItem={({ item }) =>
-                        <View style={styles.bookContainer}>
+                        <View style={homeStyles.bookContainer}>
                             <Image
-                                style={styles.thumbnail}
+                                style={homeStyles.thumbnail}
                                 source={{ uri: item.imageLinks.smallThumbnail }}
                             />
                             <Text style={{ fontSize: 18 }}>{item.name}</Text>
@@ -96,44 +97,3 @@ export default function Home() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
-    header: {
-        backgroundColor: '#3D2B24',
-        width: '100%',
-        height: '15%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headerText: {
-        marginTop: 30,
-        color: 'white',
-        fontSize: 25
-    },
-    genreContainer: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 20
-    },
-    listContainer: {
-        flexDirection: 'row',
-        flex: 3,
-        alignItems: 'center'
-    },
-    bookContainer: {
-        alignItems: 'center',
-        marginBottom: 10,
-        width: '50%',
-    },
-    thumbnail: {
-        width: '80%',
-        aspectRatio: 1,
-        resizeMode: 'contain',
-    }
-});

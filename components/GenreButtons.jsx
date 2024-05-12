@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from 'react-native-paper';
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
+import { genreButtonStyles } from "./Styles";
 
 export default function GenreButtons({ fetchBooks }) {
     const [selectedGenre, setSelectedGenre] = useState('All');
@@ -11,7 +12,7 @@ export default function GenreButtons({ fetchBooks }) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={genreButtonStyles.container}>
             <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -21,7 +22,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="All"
                     onPress={() => handleGenreChange('All')}
                     buttonColor={selectedGenre == 'All' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     All
                 </Button>
@@ -30,7 +31,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="Biography"
                     onPress={() => handleGenreChange('Biography')}
                     buttonColor={selectedGenre == 'Biography' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     Biography
                 </Button>
@@ -39,7 +40,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="Fantasy"
                     onPress={() => handleGenreChange('Fantasy')}
                     buttonColor={selectedGenre == 'Fantasy' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     Fantasy
                 </Button>
@@ -48,7 +49,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="Horror"
                     onPress={() => handleGenreChange('Horror')}
                     buttonColor={selectedGenre == 'Horror' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     Horror
                 </Button>
@@ -57,7 +58,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="Romance"
                     onPress={() => handleGenreChange('Romance')}
                     buttonColor={selectedGenre == 'Romance' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     Romance
                 </Button>
@@ -66,7 +67,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="Thriller"
                     onPress={() => handleGenreChange('Thriller')}
                     buttonColor={selectedGenre == 'Thriller' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     Thriller
                 </Button>
@@ -75,7 +76,7 @@ export default function GenreButtons({ fetchBooks }) {
                     title="Travel"
                     onPress={() => handleGenreChange('Travel')}
                     buttonColor={selectedGenre == 'Travel' ? '#3D2B24' : '#8D776E'}
-                    style={styles.buttonContainer}
+                    style={genreButtonStyles.buttonContainer}
                 >
                     Travel
                 </Button>
@@ -83,12 +84,3 @@ export default function GenreButtons({ fetchBooks }) {
         </View >
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-    },
-    buttonContainer: {
-        margin: 1,
-    }
-})

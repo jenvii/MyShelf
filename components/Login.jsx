@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { loginandRegistrationStyles } from "./Styles";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -16,10 +17,10 @@ export default function Login() {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={loginandRegistrationStyles.container}>
             <Text>Log in to MyShelf!</Text>
             <TextInput
-                style={styles.loginTextInputStyle}
+                style={loginandRegistrationStyles.loginTextInputStyle}
                 value={email}
                 activeUnderlineColor="#3D2B24"
                 textColor="#3D2B24"
@@ -27,7 +28,7 @@ export default function Login() {
                 onChangeText={(text) => setEmail(text)}
             />
             <TextInput
-                style={styles.loginTextInputStyle}
+                style={loginandRegistrationStyles.loginTextInputStyle}
                 value={password}
                 activeUnderlineColor="#3D2B24"
                 textColor="#3D2B24"
@@ -36,42 +37,19 @@ export default function Login() {
                 secureTextEntry={true}
             />
             <Button
-                style={styles.buttonStyle}
+                style={loginandRegistrationStyles.buttonStyle}
                 mode="contained"
                 buttonColor="#3D2B24"
                 onPress={handleLogin}>
                 Login
             </Button>
-            <View style={styles.messageContainer}>
+            <View style={loginandRegistrationStyles.messageContainer}>
                 <Text>Don't have an account yet? </Text>
                 <Pressable onPress={() => navigation.navigate('RegistrationPage')}>
-                    <Text style={styles.linkStyle}>Register here!</Text>
+                    <Text style={loginandRegistrationStyles.linkStyle}>Register here!</Text>
                 </Pressable>
             </View>
         </View>
     )
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    loginTextInputStyle: {
-        width: 300,
-        margin: 10,
-        backgroundColor: '#E5CCC3'
-    },
-    messageContainer: {
-        flexDirection: 'row'
-    },
-    buttonStyle: {
-        margin: 8,
-        width: 150
-    },
-    linkStyle: {
-        color: 'blue'
-    }
-})

@@ -1,7 +1,9 @@
 import { collection, getDocs, where } from "firebase/firestore";
-import { FlatList, StyleSheet, Text, View, Image } from "react-native";
+import { FlatList, Text, View, Image } from "react-native";
 import { db } from "../firebase/Firebase";
 import { useEffect, useState } from "react";
+import Header from "./Header";
+import { bookShelfStyles } from "./Styles";
 
 export default function Shelf({ user }) {
     const [books, setBooks] = useState([]);
@@ -28,18 +30,19 @@ export default function Shelf({ user }) {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <View style={styles.listContainer}>
+        <View style={bookShelfStyles.container}>
+            <Header headertext="Your Bookshelf" />
+            <View style={bookShelfStyles.listContainer}>
                 <FlatList
                     data={books}
                     renderItem={({ item }) => (
-                        <View style={styles.listStyle}>
+                        <View style={bookShelfStyles.listStyle}>
                             <Image
-                                style={styles.thumbnail}
+                                style={bookShelfStyles.thumbnail}
                                 source={{ uri: item.bookInfo.imageLinks.smallThumbnail }}
                             />
-                            <View styles={styles.textContainer}>
-                                <Text style={styles.textStyle} >{item.bookInfo.name}</Text>
+                            <View bookShelfStyles={bookShelfStyles.textContainer}>
+                                <Text style={bookShelfStyles.textStyle} >{item.bookInfo.name}</Text>
                                 <Text>{item.bookInfo.authors}</Text>
                             </View>
                         </View>
@@ -50,34 +53,3 @@ export default function Shelf({ user }) {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    listContainer: {
-        flexDirection: 'row',
-        flex: 3,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '95%'
-    },
-    listStyle: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-    },
-    textContainer: {
-        flexDirection: 'column',
-    },
-    textStyle: {
-        maxWidth: '90%'
-    },
-    thumbnail: {
-        width: '40%',
-        aspectRatio: 1,
-        resizeMode: 'contain',
-    },
-});
