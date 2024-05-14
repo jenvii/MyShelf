@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { Text, View, FlatList, Pressable, Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
 import { searchStyles } from "./Styles";
 
-export default function Search({ user }) {
+export default function Search({ navigation, user }) {
 
-    const navigation = useNavigation();
     const [keyword, setKeyword] = useState("");
     const [books, setBooks] = useState([]);
     const userId = user.uid;

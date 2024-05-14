@@ -3,13 +3,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
 import { View, Text, Pressable } from "react-native";
 import { Button, TextInput } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
 import { loginandRegistrationStyles } from "./Styles";
 
-export default function Registration() {
+export default function Registration({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigation = useNavigation();
 
     const handleSignIn = async () => {
         await createUserWithEmailAndPassword(auth, email, password)

@@ -1,12 +1,11 @@
 import { Text, View, Image, ScrollView, Pressable } from "react-native";
 import { Icon } from "@rneui/base";
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { db } from "../firebase/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { bookStyles } from "./Styles";
 
-export default function Book({ route }) {
+export default function Book({ route, navigation }) {
     const { book, userUid } = route.params;
     const { name, authors, publisher, description, publishingDate, categories, imageLinks } = book;
     const [bookForSaving, setsBookForSaving] = useState({
@@ -14,7 +13,6 @@ export default function Book({ route }) {
         userId: userUid
     });
     const publishingYear = publishingDate.split('-')[0];
-    const navigation = useNavigation();
 
     const addToFavorites = async () => {
         try {

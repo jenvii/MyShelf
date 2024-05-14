@@ -3,13 +3,11 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/Firebase';
 import { View, Text, Pressable } from "react-native";
 import { Button, TextInput } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
 import { loginandRegistrationStyles } from "./Styles";
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigation = useNavigation();
 
     const handleLogin = async () => {
         await signInWithEmailAndPassword(auth, email, password)
@@ -45,7 +43,7 @@ export default function Login() {
             </Button>
             <View style={loginandRegistrationStyles.messageContainer}>
                 <Text>Don't have an account yet? </Text>
-                <Pressable onPress={() => navigation.navigate('RegistrationPage')}>
+                <Pressable onPress={() => navigation.navigate('Registration')}>
                     <Text style={loginandRegistrationStyles.linkStyle}>Register here!</Text>
                 </Pressable>
             </View>
