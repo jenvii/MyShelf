@@ -14,7 +14,7 @@ export default function Home({ user }) {
 
     const handleLogout = async () => {
         await signOut(auth)
-        console.log("USer signed out successfully")
+        console.log("User signed out successfully")
     }
 
     const fetchBooks = (genre) => {

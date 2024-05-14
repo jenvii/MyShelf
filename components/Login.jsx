@@ -8,15 +8,21 @@ import { loginandRegistrationStyles } from "./Styles";
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = async () => {
-        await signInWithEmailAndPassword(auth, email, password)
-        console.log("User logged in succesfully")
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+            console.log("User logged in succesfully")
+        } catch (error) {
+            setErrorMessage("Invalid email address or password, please try again")
+        }
     }
 
     return (
         <View style={loginandRegistrationStyles.container}>
             <Text>Log in to MyShelf!</Text>
+            <Text style={loginandRegistrationStyles.errorMessageStyle}>{errorMessage}</Text>
             <TextInput
                 style={loginandRegistrationStyles.loginTextInputStyle}
                 value={email}

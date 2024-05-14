@@ -20,6 +20,11 @@ export const loginandRegistrationStyles = StyleSheet.create({
     },
     linkStyle: {
         color: 'blue'
+    },
+    errorMessageStyle: {
+        color: 'red',
+        textAlign: 'center',
+        width: '90%'
     }
 })
 
@@ -176,6 +181,14 @@ export const bookStyles = StyleSheet.create({
     bookAuthorStyle: {
         fontSize: 17
     },
+    favoriteButtonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10
+    },
+    favoriteButtonStyle: {
+        width: '60%'
+    },
     bookDescription: {
         flex: 2,
         alignItems: 'center',
@@ -206,7 +219,6 @@ export const bookShelfStyles = StyleSheet.create({
         justifyContent: 'space-between',
 
     },
-
     textContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -214,7 +226,7 @@ export const bookShelfStyles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     textStyle: {
-        maxWidth: '90%',
+        maxWidth: '80%',
     },
     thumbnail: {
         width: '40%',

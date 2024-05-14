@@ -4,6 +4,7 @@ import { useState } from "react";
 import { db } from "../firebase/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { bookStyles } from "./Styles";
+import { Button } from "react-native-paper";
 
 export default function Book({ route, navigation }) {
     const { book, userUid } = route.params;
@@ -45,10 +46,14 @@ export default function Book({ route, navigation }) {
                     <Text>Published in {publishingYear}</Text>
                     <Text>Published by {publisher}</Text>
                 </View>
-                <View>
-                    <Pressable onPress={addToFavorites}>
-                        <Text>Add to favorites</Text>
-                    </Pressable>
+                <View style={bookStyles.favoriteButtonContainer}>
+                    <Button
+                        style={bookStyles.favoriteButtonStyle}
+                        mode="contained"
+                        buttonColor="#3D2B24"
+                        onPress={addToFavorites}>
+                        Save to Your Bookshelf
+                    </Button>
                 </View>
                 <View style={bookStyles.bookDescription}>
                     <Text style={bookStyles.description}>{description}</Text>

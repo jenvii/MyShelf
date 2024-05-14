@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './components/Login';
 import Home from './components/Home';
-import SearchPage from './components/Search';
+import Search from './components/Search';
 import BookShelf from './components/BookShelf';
 import Book from './components/Book';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -85,7 +85,7 @@ const StackNavigator = ({ user }) => {
         name="SearchPage"
         options={{ headerShown: false }}
       >
-        {props => <SearchPage {...props} user={user} />}
+        {props => <Search {...props} user={user} />}
       </Stack.Screen>
       <Stack.Screen
         name="Book"
