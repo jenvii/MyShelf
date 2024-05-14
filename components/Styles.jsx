@@ -94,8 +94,7 @@ export const searchStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingTop: 40
+        justifyContent: 'flex-start'
     },
     searchBarStyle: {
         flex: 1,
@@ -112,7 +111,7 @@ export const searchStyles = StyleSheet.create({
     },
     listContainer: {
         flexDirection: 'row',
-        flex: 3,
+        flex: 5,
         alignItems: 'center',
         justifyContent: 'center',
         width: '95%'
@@ -125,17 +124,21 @@ export const searchStyles = StyleSheet.create({
     },
     thumbnail: {
         width: '80%',
+        height: 180,
         aspectRatio: 1,
         resizeMode: 'contain',
     },
     titleStyle: {
-        fontSize: 18,
-        textAlign: 'center'
+        fontSize: 16,
+        textAlign: 'center',
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 5,
     },
     buttonStyle: {
-        width: '80%',
-        alignItems: 'center',
-        justifyContent: 'center'
+        width: 150
     },
     emptySearchStyle: {
         flex: 1,

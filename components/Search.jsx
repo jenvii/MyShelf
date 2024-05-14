@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Text, View, FlatList, Pressable, Image } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { searchStyles } from "./Styles";
+import Header from "./Header";
 
 export default function Search({ navigation, user }) {
 
@@ -49,6 +50,7 @@ export default function Search({ navigation, user }) {
 
     return (
         <View style={searchStyles.container}>
+            <Header headertext="Search" />
             <View style={searchStyles.searchBarStyle}>
                 <TextInput
                     style={searchStyles.textInputStyle}
@@ -78,13 +80,15 @@ export default function Search({ navigation, user }) {
                                     source={{ uri: item.imageLinks.smallThumbnail }}
                                 />
                                 <Text style={searchStyles.titleStyle}>{item.name}</Text>
-                                <Button
-                                    mode="contained"
-                                    buttonColor="#8D776E"
-                                    style={searchStyles.buttonStyle}
-                                >
-                                    Learn more
-                                </Button>
+                                <View style={searchStyles.buttonContainer}>
+                                    <Button
+                                        mode="contained"
+                                        buttonColor="#8D776E"
+                                        style={searchStyles.buttonStyle}
+                                    >
+                                        Learn more
+                                    </Button>
+                                </View>
                             </Pressable>
                         </View>}
                     ListEmptyComponent={
